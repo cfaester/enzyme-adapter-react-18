@@ -361,7 +361,7 @@ function getEmptyStateValue() {
 	return testRenderer._instance.state;
 }
 
-// @ts-expect-error
+// @ts-ignore
 const wrapAct = React.unstable_act || TestUtils.act;
 
 function getProviderDefaultValue(Provider) {
@@ -387,12 +387,13 @@ function isStateful(Component) {
 }
 
 class ReactEighteenAdapter extends EnzymeAdapter {
-	options: {}
 	constructor() {
 		super();
 		// @ts-expect-error
 		const { lifecycles } = this.options;
+		// @ts-expect-error
 		this.options = {
+			// @ts-expect-error
 			...this.options,
 			enableComponentDidUpdateOnSetState: true, // TODO: remove, semver-major
 			legacyContextMode: 'parent',
@@ -542,9 +543,10 @@ class ReactEighteenAdapter extends EnzymeAdapter {
 		};
 	}
 
-	createShallowRenderer(options: any = {}) {
+	createShallowRenderer(options = {}) {
 		const adapter = this;
 		const renderer = new ShallowRenderer();
+		// @ts-expect-error
 		const { suspenseFallback } = options;
 		if (typeof suspenseFallback !== 'undefined' && typeof suspenseFallback !== 'boolean') {
 			throw TypeError('`options.suspenseFallback` should be boolean or undefined');
@@ -562,9 +564,8 @@ class ReactEighteenAdapter extends EnzymeAdapter {
 				if (isStateful(Component)) {
 					wrappedComponent = class extends Component {};
 					if (compare) {
-						wrappedComponent.prototype.shouldComponentUpdate = (nextProps) =>
-							// @ts-expect-error
-							!compare(this.props, nextProps);
+						// @ts-expect-error
+						wrappedComponent.prototype.shouldComponentUpdate = (nextProps) => !compare(this.props, nextProps);
 					} else {
 						wrappedComponent.prototype.isPureReactComponent = true;
 					}
@@ -969,7 +970,7 @@ class ReactEighteenAdapter extends EnzymeAdapter {
 		// @ts-expect-error
 		return React.createElement(...args);
 	}
-	
+
 	// @ts-expect-error
 	wrapWithWrappingComponent(node, options) {
 		return {

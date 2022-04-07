@@ -1,17 +1,16 @@
 {
   "compilerOptions": {
     "module": "commonjs",
-    "target": "es2018",
+    "target": "es2019",
     "declaration": true,
     "jsx": "react",
     "outDir": "./dist",
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "lib": ["es5", "es2018", "esnext"],
+    "moduleResolution": "node",
+    "newLine": "LF",
+    "allowSyntheticDefaultImports": true
   },
-  "include": [
-    "src/**/*"
-  ],
-	"exclude": [
-    "node_modules",
-    "dist"
-  ]
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist"]
 }
