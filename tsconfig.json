@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es2018",
+    "declaration": true,
+    "jsx": "react",
+    "outDir": "./dist",
+    "esModuleInterop": true
+  },
+  "include": [
+    "src/**/*"
+  ],
+	"exclude": [
+    "node_modules",
+    "dist"
+  ]
+}
