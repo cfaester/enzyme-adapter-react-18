@@ -1,4 +1,4 @@
-[![npm](https://img.shields.io/npm/v/@cfaester/enzyme-adapter-react-18.svg)](https://www.npmjs.com/package/@cfaester/enzyme-adapter-react-18) ![downloads](https://img.shields.io/npm/dt/@cfaester/enzyme-adapter-react-18.svg)
+[![npm](https://img.shields.io/npm/v/@cfaester/enzyme-adapter-react-18.svg)](https://www.npmjs.com/package/@cfaester/enzyme-adapter-react-18)
 
 # @cfaester/enzyme-adapter-react-18
 
@@ -10,7 +10,6 @@ Should you count on it? Probably not. Can you use it as a reference for your own
 
 ```
 npm install --save-dev @cfaester/enzyme-adapter-react-18
-
 ```
 
 ## Configuration
