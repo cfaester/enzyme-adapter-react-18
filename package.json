@@ -1,6 +1,6 @@
 {
   "name": "@cfaester/enzyme-adapter-react-18",
-  "version": "0.0.5",
+  "version": "0.5.0",
   "description": "An unofficial React 18 adapter for Enzyme, that you probably shouldn't use.",
   "repository": {
     "type": "git",
@@ -11,17 +11,21 @@
   "files": [
     "/dist"
   ],
+  "author": "Jordan Harband <ljharb@gmail.com>",
+  "contributors": [
+    "Wojciech Maj <kontakt@wojtekmaj.pl>",
+    "Christian Fæster"
+  ],
   "scripts": {
     "build": "tsc"
   },
   "keywords": [
     "enzyme",
-    "react-18",
+    "react 18",
     "unofficial",
-    "shallow-rendering",
+    "shallow rendering",
     "testing"
   ],
-  "author": "Christian Fæster",
   "license": "MIT",
   "dependencies": {
     "enzyme-shallow-equal": "^1.0.0",
