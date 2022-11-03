@@ -1,6 +1,6 @@
 {
   "name": "@cfaester/enzyme-adapter-react-18",
-  "version": "0.5.2",
+  "version": "0.6.0",
   "description": "An unofficial React 18 adapter for Enzyme, that you probably shouldn't use.",
   "repository": {
     "type": "git",
