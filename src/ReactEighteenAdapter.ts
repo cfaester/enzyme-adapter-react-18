@@ -4,7 +4,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { createRoot, hydrateRoot } from 'react-dom/client';
 
-import ReactDOMServer from 'react-dom/server';
 import ShallowRenderer from 'react-test-renderer/shallow';
 import TestUtils from 'react-dom/test-utils';
 import has from 'has';
@@ -786,6 +785,20 @@ class ReactEighteenAdapter extends EnzymeAdapter {
 			throw new TypeError('`suspenseFallback` should not be specified in options of string renderer');
 		}
 
+		// JSDOM >= 17 has begun removing Node API's from global.
+		// To avoid having to change environment for specific tests, it makes sense to globally 'polyfil' these after the fact.
+		if (!globalThis.TextEncoder) {
+			throw new Error(`Using Jest and/or JSDOM? TextEncoder needs to be available in the \`global\` scope to use Enzyme.render(<Component />).
+Add the following to your test suite setup file ("setupfile" option in Jest), to polyfill it:
+\`\`\`
+  import util from 'util';
+  Object.defineProperty(global, 'TextEncoder', {
+    value: util.TextEncoder,
+  });
+\`\`\``);
+		}
+		const ReactDOMServer = require('react-dom/server');
+
 		return {
 			render(el, context) {
 				if (options.context && (el.type.contextTypes || options.childContextTypes)) {
@@ -808,13 +821,13 @@ class ReactEighteenAdapter extends EnzymeAdapter {
 	createRenderer(options) {
 		switch (options.mode) {
 			// @ts-expect-error
-			case EnzymeAdapter.MODES.MOUNT:
+			case EnzymeAdapter.MODES.MOUNT: // enzyme.mount()
 				return this.createMountRenderer(options);
 			// @ts-expect-error
-			case EnzymeAdapter.MODES.SHALLOW:
+			case EnzymeAdapter.MODES.SHALLOW: // enzyme.shallow()
 				return this.createShallowRenderer(options);
 			// @ts-expect-error
-			case EnzymeAdapter.MODES.STRING:
+			case EnzymeAdapter.MODES.STRING: // enzyme.render()
 				return this.createStringRenderer(options);
 			default:
 				throw new Error(`Enzyme Internal Error: Unrecognized mode: ${options.mode}`);
