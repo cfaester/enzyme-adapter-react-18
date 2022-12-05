@@ -58,8 +58,6 @@ export default function createMountWrapper(node, options = {}): any {
 		}
 
 		setChildProps(newProps, newContext, callback = undefined) {
-			console.log('setting child props');
-
 			const { props: oldProps, context: oldContext } = this.state;
 			const props = { ...oldProps, ...newProps };
 			const context = { ...oldContext, ...newContext };
@@ -67,7 +65,6 @@ export default function createMountWrapper(node, options = {}): any {
 		}
 
 		setWrappingComponentProps(props, callback = undefined) {
-			console.log('setWrappingComponentProps');
 			this.setState({ wrappingComponentProps: props }, callback);
 		}
 
