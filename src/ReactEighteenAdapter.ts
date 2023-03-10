@@ -467,30 +467,27 @@ class ReactEighteenAdapter extends EnzymeAdapter {
 				// un an unmounted tree. So we flag it instead.
 				unmountFlag = true;
 			},
-			getNode() {				
-				let node;
+			getNode() {
+        let node;
 
-				wrapAct(() => {
-					if (!instance) {
-						node = null;
-					}
-					else {
-						node = getNodeFromRootFinder(
-							adapter.isCustomComponent,
-							toTree(instance._reactInternals),
-							options,
-						);
-					}
-				});
-				if (unmountFlag) {
-					wrapAct(() => {
-						rootNode?.unmount();
-						instance = null;
-					});
-				}
+				// Many node types will not have an instance (like functional components), should we consider throwing a user facing error here?
+        if (!instance) {
+          node = null;
+        } else {
+          node = getNodeFromRootFinder(
+            adapter.isCustomComponent,
+            toTree(instance._reactInternals),
+            options
+          );
+        }
+        if (unmountFlag) {
+          wrapAct(() => {
+            rootNode?.unmount();
+            instance = null;
+          });
+        }
 
-				return node;
-
+        return node;
 			},
 			wrap: wrapAct,
 			simulateError(nodeHierarchy, rootNode, error) {
