@@ -474,12 +474,13 @@ class ReactEighteenAdapter extends EnzymeAdapter {
 					if (!instance) {
 						node = null;
 					}
-	
-					node = getNodeFromRootFinder(
-						adapter.isCustomComponent,
-						toTree(instance._reactInternals),
-						options,
-					);
+					else {
+						node = getNodeFromRootFinder(
+							adapter.isCustomComponent,
+							toTree(instance._reactInternals),
+							options,
+						);
+					}
 				});
 				if (unmountFlag) {
 					wrapAct(() => {
