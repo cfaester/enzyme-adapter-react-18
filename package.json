@@ -1,6 +1,6 @@
 {
   "name": "@cfaester/enzyme-adapter-react-18",
-  "version": "0.7.1",
+  "version": "0.7.2",
   "description": "An unofficial React 18 adapter for Enzyme, that you probably shouldn't use.",
   "repository": {
     "type": "git",
@@ -38,7 +38,8 @@
     "enzyme": "^3.11.0",
     "typescript": "^4.6.3",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "has":"1.0.4"
   },
   "peerDependencies": {
     "enzyme": "^3.11.0",
