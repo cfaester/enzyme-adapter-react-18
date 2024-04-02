@@ -39,11 +39,13 @@
     "typescript": "^4.6.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "has":"1.0.4"
+    "function.prototype.name": "^1.1.5",
+    "prop-types": "^15.6.2"
   },
   "peerDependencies": {
     "enzyme": "^3.11.0",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "has":"1.0.4"
   }
 }
