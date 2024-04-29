@@ -4,11 +4,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { createRoot, hydrateRoot } from 'react-dom/client';
 
-import ShallowRenderer from 'react-test-renderer/shallow';
+import ShallowRenderer from "react-shallow-renderer";
 import TestUtils from 'react-dom/test-utils';
 import has from 'has';
 import {
-	ConcurrentMode,
 	ContextConsumer,
 	ContextProvider,
 	Element,
@@ -133,6 +132,7 @@ function elementToTree(el) {
 		return utilElementToTree(el, elementToTree);
 	}
 
+	// @ts-expect-error - its a Fiber node
 	const { children, containerInfo } = el;
 	const props = { children, containerInfo };
 
@@ -141,8 +141,10 @@ function elementToTree(el) {
 		type: Portal,
 		props,
 		key: ensureKeyOrUndefined(el.key),
+		// @ts-expect-error
 		ref: el.ref || null,
 		instance: null,
+		// @ts-expect-error
 		rendered: elementToTree(el.children),
 	};
 }
@@ -448,7 +450,7 @@ class ReactEighteenAdapter extends EnzymeAdapter {
 						const wrappedEl = React.createElement(ReactWrapperComponent, wrapperProps);
 						
 						if (hydrateIn) {
-							rootNode = hydrateRoot(domNode);
+							rootNode = hydrateRoot(domNode, wrappedEl);
 						} else {
 							rootNode = createRoot(domNode);
 						}
@@ -596,10 +598,14 @@ class ReactEighteenAdapter extends EnzymeAdapter {
 			if (has(Component, 'defaultProps')) {
 				if (lastComponent !== Component) {
 					wrappedComponent = Object.assign(
-						(props, ...args) => Component({ ...Component.defaultProps, ...props }, ...args),
-						Component,
-						{ displayName: adapter.displayNameOfNode({ type: Component }) },
-					);
+            (props, ...args) =>
+              (Component as any)(
+                { ...(Component.defaultProps as {}), ...props },
+                ...args
+              ),
+            Component,
+            { displayName: adapter.displayNameOfNode({ type: Component }) }
+          );
 					lastComponent = Component;
 				}
 
@@ -879,8 +885,6 @@ Add the following to your test suite setup file ("setupfile" option in Jest), to
 		// newer node types may be undefined, so only test if the nodeType exists
 		if (nodeType) {
 			switch (nodeType) {
-				case ConcurrentMode || NaN:
-					return 'ConcurrentMode';
 				case Fragment || NaN:
 					return 'Fragment';
 				case StrictMode || NaN:
