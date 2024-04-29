@@ -302,6 +302,9 @@ function nodeToHostNode(_node) {
 	let node = _node;
 	while (node && !Array.isArray(node) && node.instance === null) {
 		node = node.rendered;
+		if (Array.isArray(node)) {
+			node = node.find(childNode => childNode.rendered !== null);
+		}
 	}
 	// if the SFC returned null effectively, there is no host node.
 	if (!node) {
